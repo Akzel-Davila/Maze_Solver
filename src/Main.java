@@ -9,7 +9,6 @@ public class Main {
         MazeSolver m = new MazeSolver(maze);
         int endRow = maze.length-1;
         int endCol = maze[0].length-1;
-        System.out.print(endRow + " " + endCol);
         int currRow = 0;
         int currCol = 0;
         String list = "";
@@ -19,34 +18,28 @@ public class Main {
             {
                 currRow -= 1;
                 list += ("(" + currRow + ", " + currCol + ")-->");
-                System.out.println("Up");
             }
             else if (m.canGoDown(currRow, currCol))
             {
                 currRow += 1;
                 list += ("(" + currRow + ", " + currCol + ")-->");
-                System.out.println("down");
             }
             else if (m.canGoLeft(currRow, currCol))
             {
                 currCol -= 1;
                 list += ("(" + currRow + ", " + currCol + ")-->");
-                System.out.println("left");
             }
             else if (m.canGoRight(currRow, currCol))
             {
                 currCol += 1;
                 list += ("(" + currRow + ", " + currCol + ")-->");
-                System.out.println("right");
             }
             else{
                 m.markDeadEnd(currRow,currCol);
                 currRow = 0;
                 currCol = 0;
-                System.out.println(currRow);
                 list = "";
                 m.setLastDir("");
-                printMaze(maze);
             }
         }
         printMaze(maze);
