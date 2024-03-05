@@ -10,7 +10,7 @@ public class MazeSolver {
         this.maze = maze;
         endRow = maze.length-1;
         endCol = maze[0].length-1;
-        lastDir = "Up";
+        lastDir = "";
     }
     public boolean canGoUp(int row, int col){
         this.row = row;
@@ -56,10 +56,19 @@ public class MazeSolver {
         }
         return false;
     }
-    public void printArrow(){
-        if (!(row == endRow) || !(col==endCol)){
-            System.out.print("-->");
-        }
+
+    public void setLastDir(String lastDir) {
+        this.lastDir = lastDir;
     }
+
+    public boolean isDeadEnd(int row, int col)
+    {
+        return !(canGoRight(row,col) || canGoLeft(row, col) || canGoUp(row, col) || canGoDown(row,col));
+    }
+    public void markDeadEnd(int row, int col){
+        maze[row][col] = "#";
+    }
+    public void resetStart(){maze[0][0] = ".";}
+
 
 }

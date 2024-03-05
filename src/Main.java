@@ -5,37 +5,51 @@ import java.util.Scanner;
 import java.util.ArrayList;
 public class Main {
     public static void main(String[] args){
-        String [][] maze = getMaze("Mazes/Maze");
+        String [][] maze = getMaze("Mazes/Super_Maze");
         MazeSolver m = new MazeSolver(maze);
         int endRow = maze.length-1;
         int endCol = maze[0].length-1;
+        System.out.print(endRow + " " + endCol);
         int currRow = 0;
         int currCol = 0;
         String list = "";
-        while(currRow != endRow || currCol != endCol){
+        printMaze(maze);
+        while(currRow != endRow || currCol != endCol) {
             if (m.canGoUp(currRow, currCol))
             {
-                currRow-=1;
+                currRow -= 1;
                 list += ("(" + currRow + ", " + currCol + ")-->");
+                System.out.println("Up");
             }
-
             else if (m.canGoDown(currRow, currCol))
             {
-                currRow+=1;
-                list+= ("(" + currRow + ", " + currCol + ")-->");
+                currRow += 1;
+                list += ("(" + currRow + ", " + currCol + ")-->");
+                System.out.println("down");
             }
-
             else if (m.canGoLeft(currRow, currCol))
             {
-                currCol -=1;
+                currCol -= 1;
                 list += ("(" + currRow + ", " + currCol + ")-->");
+                System.out.println("left");
             }
             else if (m.canGoRight(currRow, currCol))
             {
-                currCol +=1;
-                list+= ("(" + currRow + ", " + currCol + ")-->");
+                currCol += 1;
+                list += ("(" + currRow + ", " + currCol + ")-->");
+                System.out.println("right");
+            }
+            else{
+                m.markDeadEnd(currRow,currCol);
+                currRow = 0;
+                currCol = 0;
+                System.out.println(currRow);
+                list = "";
+                m.setLastDir("");
+                printMaze(maze);
             }
         }
+        printMaze(maze);
         list = list.substring(0,list.length()-3);
         System.out.println(list);
     }
