@@ -7,44 +7,8 @@ public class Main {
     public static void main(String[] args){
         String [][] maze = getMaze("Mazes/Super_Maze");
         MazeSolver m = new MazeSolver(maze);
-        int endRow = maze.length-1;
-        int endCol = maze[0].length-1;
-        int currRow = 0;
-        int currCol = 0;
-        String list = "";
         printMaze(maze);
-        while(currRow != endRow || currCol != endCol) {
-            if (m.canGoUp(currRow, currCol))
-            {
-                currRow -= 1;
-                list += ("(" + currRow + ", " + currCol + ")-->");
-            }
-            else if (m.canGoDown(currRow, currCol))
-            {
-                currRow += 1;
-                list += ("(" + currRow + ", " + currCol + ")-->");
-            }
-            else if (m.canGoLeft(currRow, currCol))
-            {
-                currCol -= 1;
-                list += ("(" + currRow + ", " + currCol + ")-->");
-            }
-            else if (m.canGoRight(currRow, currCol))
-            {
-                currCol += 1;
-                list += ("(" + currRow + ", " + currCol + ")-->");
-            }
-            else{
-                m.markDeadEnd(currRow,currCol);
-                currRow = 0;
-                currCol = 0;
-                list = "";
-                m.setLastDir("");
-            }
-        }
-        printMaze(maze);
-        list = list.substring(0,list.length()-3);
-        System.out.println(list);
+        m.solveMaze();
     }
 
     public static void printMaze(String [][] maze){

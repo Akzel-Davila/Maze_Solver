@@ -5,12 +5,14 @@ public class MazeSolver {
     private int col;
     private int endRow;
     private int endCol;
+    private String list;
 
     public MazeSolver(String [][] maze){
         this.maze = maze;
         endRow = maze.length-1;
         endCol = maze[0].length-1;
         lastDir = "";
+        list = "";
     }
     public boolean canGoUp(int row, int col){
         this.row = row;
@@ -56,6 +58,35 @@ public class MazeSolver {
         }
         return false;
     }
+    public void solveMaze(){
+        while(row != endRow || col != endCol) {
+            if (canGoUp(row, col))
+            {
+                goUp();
+            }
+            else if (canGoDown(row, col))
+            {
+                goDown();
+            }
+            else if (canGoLeft(row, col))
+            {
+                goLeft();
+            }
+            else if (canGoRight(row, col))
+            {
+                goRight();
+            }
+            else{
+                markDeadEnd(row,col);
+                row = 0;
+                col = 0;
+                list = "(0,0)-->";
+                setLastDir("");
+            }
+        }
+        list = list.substring(0,list.length()-3);
+        System.out.println(list);
+    }
 
     public void setLastDir(String lastDir) {
         this.lastDir = lastDir;
@@ -69,6 +100,22 @@ public class MazeSolver {
         maze[row][col] = "#";
     }
     public void resetStart(){maze[0][0] = ".";}
+    public void goUp(){
+        row -= 1;
+        list += ("(" + row + ", " + col + ")-->");
+    }
+    public void goDown(){
+        row += 1;
+        list += ("(" + row + ", " + col + ")-->");
+    }
+    public void goLeft(){
+        col -= 1;
+        list += ("(" + row + ", " + col + ")-->");
+    }
+    public void goRight(){
+        col += 1;
+        list += ("(" + row + ", " + col + ")-->");
+    }
 
 
 }
